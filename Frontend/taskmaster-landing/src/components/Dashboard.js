@@ -1,18 +1,32 @@
-import React, { useEffect } from "react";
-import { isAuthenticated, logout } from "../utils/auth";
+import React from "react";
 
-const Dashboard = () => {
-    useEffect(() => {
-        if (!isAuthenticated()) {
-            alert("Session expired. Please login again.");
-            window.location.href = "/login";
-        }
-    }, []);
-
+const Dashboard = ({ tasks, selectTask }) => {
     return (
-        <div>
-            <h2>Dashboard</h2>
-            <button onClick={logout}>Logout</button>
+        <div className="p-4 flex flex-col">
+            <div className="bg-white shadow rounded-lg p-6 mb-4">
+                <h2 className="text-xl font-bold mb-4">Today</h2>
+                {tasks.map((task, index) => (
+                    <div
+                        key={index}
+                        onClick={() => selectTask(task)}
+                        className="flex items-center justify-between p-2 hover:bg-gray-100 rounded cursor-pointer"
+                    >
+                        <span>{task.name}</span>
+                    </div>
+                ))}
+            </div>
+            <div className="bg-white shadow rounded-lg p-6">
+                <h2 className="text-xl font-bold mb-4">Upcoming</h2>
+                {tasks.map((task, index) => (
+                    <div
+                        key={index}
+                        onClick={() => selectTask(task)}
+                        className="flex items-center justify-between p-2 hover:bg-gray-100 rounded cursor-pointer"
+                    >
+                        <span>{task.name}</span>
+                    </div>
+                ))}
+            </div>
         </div>
     );
 };

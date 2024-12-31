@@ -5,8 +5,8 @@ import LandingPage from './components/LandingPage';
 import LoginPage from './components/LoginPage';
 import  SignUpPage  from './components/SignUpPage'; // Assuming LoginPage is the login component
 import { ForgotPasswordPage } from './components/ForgotPasswordPage';
-import Dashboard from './components/Dashboard';
 import ProtectedRoute from './ProtectedRoute';
+import TaskMasterLanding from './components/TaskMasterLanding.js';
 function App() {
   return (
     <Router>
@@ -19,7 +19,7 @@ function App() {
                     path="/dashboard"
                     element={
                         <ProtectedRoute>
-                            <Dashboard />
+                            <TaskMasterLanding />
                         </ProtectedRoute>
                     }
                 />
