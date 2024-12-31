@@ -1,16 +1,29 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { loginUser } from '../api/apiService'; // Import the login API call
 
 const LoginPage = () => {
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Login attempted with:', { email, password, rememberMe });
-    navigate('/');
+    try {
+      const response = await loginUser({ username, password }); // Call the login API
+      const token = response.data.token; // Extract the token from the API response
+      if (rememberMe) {
+        localStorage.setItem('authToken', token); // Store token persistently
+      } else {
+        sessionStorage.setItem('authToken', token); // Store token for session
+      }
+      setErrorMessage(''); // Clear error message on success
+      navigate('/dashboard'); // Redirect to dashboard
+    } catch (error) {
+      setErrorMessage('Invalid username or password. Please try again.');
+    }
   };
 
   return (
@@ -34,15 +47,18 @@ const LoginPage = () => {
         </div>
 
         <form className="mt-6 space-y-5" onSubmit={handleSubmit}>
+          {errorMessage && (
+            <div className="text-sm text-red-600">{errorMessage}</div>
+          )}
           <div>
-            <label htmlFor="email" className="block text-base font-medium text-gray-800">
-              Email address
+            <label htmlFor="username" className="block text-base font-medium text-gray-800">
+              Username
             </label>
             <input
-              id="email"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              id="username"
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
               required
             />

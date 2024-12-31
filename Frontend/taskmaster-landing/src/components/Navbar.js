@@ -27,6 +27,14 @@ const Navbar = () => {
     if (!isMobileMenuOpen) setVisible(true);
   };
 
+  const scrollToSection = (sectionId) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+      setIsMobileMenuOpen(false);
+    }
+  };
+
   return (
     <nav 
       className={`bg-white fixed w-full z-20 top-0 left-0 border-b border-gray-200 transition-all duration-300 ease-in-out ${
@@ -103,22 +111,20 @@ const Navbar = () => {
               </Link>
             </li>
             <li>
-              <Link
-                to="/#features"
-                className="block py-2 px-3 text-gray-600 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-indigo-600 md:p-0 transition-colors"
-                onClick={() => setIsMobileMenuOpen(false)}
+              <button
+                onClick={() => scrollToSection('features')}
+                className="block w-full text-left py-2 px-3 text-gray-600 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-indigo-600 md:p-0 transition-colors"
               >
                 Features
-              </Link>
+              </button>
             </li>
             <li>
-              <Link
-                to="/#pricing"
-                className="block py-2 px-3 text-gray-600 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-indigo-600 md:p-0 transition-colors"
-                onClick={() => setIsMobileMenuOpen(false)}
+              <button
+                onClick={() => scrollToSection('pricing')}
+                className="block w-full text-left py-2 px-3 text-gray-600 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-indigo-600 md:p-0 transition-colors"
               >
                 Pricing
-              </Link>
+              </button>
             </li>
             <li>
               <Link

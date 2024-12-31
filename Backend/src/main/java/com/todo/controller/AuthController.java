@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/auth")
 public class AuthController {
     private final AuthService authService;
@@ -26,7 +27,7 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody Map<String, String> user) {
         String token = authService.loginUser(user.get("username"), user.get("password"));
-        return ResponseEntity.ok(token);
+        return ResponseEntity.ok("{\"token\": \"" + token + "\"}");
     }
 
     @GetMapping("/validate")

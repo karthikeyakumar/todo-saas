@@ -3,14 +3,14 @@ import { Link, useNavigate } from 'react-router-dom';
 
 function SignUpPage() {
   // Define the state variables and useNavigate hook inside the component
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Sign up attempted with:', { email, password });
+    console.log('Sign up attempted with:', { username, password });
     
     // Add a simple validation check for password matching
     if (password !== confirmPassword) {
@@ -44,14 +44,14 @@ function SignUpPage() {
 
         <form className="mt-6 space-y-5" onSubmit={handleSubmit}>
           <div>
-            <label htmlFor="email" className="block text-base font-medium text-gray-800">
-              Email address
+            <label htmlFor="username" className="block text-base font-medium text-gray-800">
+              Username
             </label>
             <input
-              id="email"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              id="username"
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
               required
             />
